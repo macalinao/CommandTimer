@@ -59,9 +59,7 @@ sets:
 # Each group contains multiple sections with a key corresponding to a set.
 # Under these sections, you can specify the desired warmup and cooldown to use.
 # By not specifying one, the cooldown won't be used.
-# Groups can also inherit from each other. These only inherit entire sets, not
-# partial sets. (You can't set the cooldown and expect to inherit the warmup)
-# By default, all groups inherit from default.
+# All groups inherit from default, and this currently can't be changed.
 groups:
   default:
     horses:
