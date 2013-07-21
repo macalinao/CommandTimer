@@ -30,6 +30,11 @@ public class CommandTimer extends JavaPlugin {
      */
     private Map<String, CommandSet> commands;
 
+    /**
+     * Stores the command groups.
+     */
+    private Map<String, CommandSetGroup> groups;
+
     @Override
     public void onEnable() {
         saveDefaultConfig();
@@ -61,7 +66,7 @@ public class CommandTimer extends JavaPlugin {
                 ConfigurationSection setSection = setsSection.getConfigurationSection(key);
                 if (setSection == null) {
                     // Skip if not a section
-                    getLogger().log(Level.WARNING, "Invalid set configuration for set '" + key + "'. Skipping.");
+                    getLogger().log(Level.WARNING, "Invalid set configuration for set ''{0}''. Skipping.", key);
                     continue;
                 }
 
@@ -112,6 +117,51 @@ public class CommandTimer extends JavaPlugin {
                 for (String cmd : set.getCommands()) {
                     commands.put(cmd, set);
                 }
+            }
+        }
+
+        // Load groups
+        groups = new HashMap<String, CommandSetGroup>();
+        ConfigurationSection groupsSection = config.getConfigurationSection("groups");
+        if (groupsSection != null) {
+            for (String key : groupsSection.getKeys(false)) {
+                // Get the group section
+                ConfigurationSection groupSection = groupsSection.getConfigurationSection(key);
+                if (groupSection == null) {
+                    // Skip if not a section
+                    getLogger().log(Level.WARNING, "Invalid group configuration for group ''{0}''. Skipping.", key);
+                    continue;
+                }
+
+                Map<CommandSet, Integer> warmups = new HashMap<CommandSet, Integer>();
+                Map<CommandSet, Integer> cooldowns = new HashMap<CommandSet, Integer>();
+
+                // Get the group's command set configurations
+                for (String set : groupSection.getKeys(false)) {
+                    // Verify if this is an actual CommandSet
+                    CommandSet cs = sets.get(set);
+                    if (cs == null) {
+                        // Skip if not a section
+                        getLogger().log(Level.WARNING, "The set ''{0}'' does not exist for group ''{1}'' to use. Skipping.", new Object[]{set, key});
+                        continue;
+                    }
+
+                    ConfigurationSection setSection = groupSection.getConfigurationSection(set);
+                    if (setSection == null) {
+                        // Skip if not a section
+                        getLogger().log(Level.WARNING, "Invalid group set configuration for group ''{0}'' and set ''{1}''. Skipping.", new Object[]{key, set});
+                        continue;
+                    }
+
+                    int warmup = setSection.getInt("warmup", 0);
+                    warmups.put(cs, warmup);
+
+                    int cooldown = setSection.getInt("cooldown", 0);
+                    cooldowns.put(cs, cooldown);
+                }
+
+                CommandSetGroup group = new CommandSetGroup(this, key, warmups, cooldowns);
+                groups.put(key, group);
             }
         }
     }
