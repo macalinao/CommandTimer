@@ -1,0 +1,76 @@
+## CommandTimer configuration
+---
+
+# The messages that will be displayed in the plugin.
+messages:
+  warmup: '&6Command will run in &c%time% seconds. Don''t move.'
+  warmup-cancelled: '&cPending command request cancelled.'
+  cooldown: '&cError: &6You must wait &c%time% seconds to use this command again.'
+  interact-blocked: '&cError: &6You can''t do this while the command is warming up!'
+
+# Sets are sets of commands that are grouped together with one warmup/cooldown.
+# Messages override the set messages for this specific set.
+# Commands is a list of the beginning of all commands (without a slash) that
+# you want to block, so /f home blocks "/f home" and "/f home x" but not "/f ho"
+sets:
+  horses:
+    messages:
+      warmup: '&6Teleporting your horse in %time% seconds. Don''t move.'
+      warmup-cancelled: '&cHorse teleportation cancelled.'
+    commands:
+      - horse tp
+  teleport:
+    messages:
+      warmup: '&6Teleporting in %time% seconds. Don''t move.'
+      warmup-cancelled: '&cPending teleportation request cancelled.'
+    commands:
+      - home
+      - back
+      - tpa
+      - f home
+      - warp
+      - ewarp
+      - warps
+      - ewarps
+      - tpaccept
+      - tpahere
+      - tpa
+      - back
+      - tpyes
+      - etpyes
+      - etpaccept
+      - etpa
+      - etpahere
+      - call
+      - ecall
+      - ehome
+      - homes
+      - ehomes
+      - espawn
+      - ewarp
+      - eback
+      - return
+      - tpask
+      - etpask
+      - warps
+      - ewarps
+
+# Groups are configurations of timers.
+# Each group contains multiple sections with a key corresponding to a set.
+# Under these sections, you can specify the desired warmup and cooldown to use.
+# By not specifying one, the cooldown won't be used.
+# Groups can also inherit from each other. These only inherit entire sets, not
+# partial sets. (You can't set the cooldown and expect to inherit the warmup)
+groups:
+  default:
+    teleport:
+      warmup: 8
+      cooldown: 15
+  fivesec:
+    teleport:
+      warmup: 5
+      cooldown: 15
+  twosec:
+    teleport:
+      warmup: 2
+      cooldown: 15
