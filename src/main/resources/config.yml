@@ -61,8 +61,12 @@ sets:
 # By not specifying one, the cooldown won't be used.
 # Groups can also inherit from each other. These only inherit entire sets, not
 # partial sets. (You can't set the cooldown and expect to inherit the warmup)
+# By default, all groups inherit from default.
 groups:
   default:
+    horses:
+      warmup: 5
+      cooldown: 15
     teleport:
       warmup: 8
       cooldown: 15
