@@ -18,9 +18,9 @@
     </properties>
 
     <scm>
-        <developerConnection>scm:git:git@bitbucket.org:newliberty/commandtimer.git</developerConnection>
-        <connection>scm:git:https://bitbucket.org/newliberty/commandtimer.git</connection>
-        <url>https://bitbucket.org/newliberty/commandtimer</url>
+        <developerConnection>scm:git:git@github.com:NewLibertyMC/CommandTimer.git</developerConnection>
+        <connection>scm:git:https://github.com/NewLibertyMC/CommandTimer.git</connection>
+        <url>https://bitbucket.org/NewLiberty/CommandTimer</url>
         <tag>HEAD</tag>
     </scm>
 
@@ -30,20 +30,20 @@
     </ciManagement>
 
     <issueManagement>
-        <system>Bitbucket</system>
-        <url>https://bitbucket.org/newliberty/commandtimer/issues</url>
+        <system>Github</system>
+        <url>https://github.com/NewLibertyMC/CommandTimer/issues</url>
     </issueManagement>
 
     <distributionManagement>
         <repository>
-            <id>nl-private-releases</id>
-            <name>NL Private Release Repository</name>
-            <url>http://nexus.new-liberty.net/content/repositories/private-releases/</url>
+            <id>nl-releases</id>
+            <name>NL Release Repository</name>
+            <url>http://nexus.new-liberty.net/content/repositories/releases/</url>
         </repository>
         <snapshotRepository>
-            <id>nl-private-snapshots</id>
-            <name>NL Private Snapshot Repository</name>
-            <url>http://nexus.new-liberty.net/content/repositories/private-snapshots/</url>
+            <id>nl-snapshots</id>
+            <name>NL Snapshot Repository</name>
+            <url>http://nexus.new-liberty.net/content/repositories/snapshots/</url>
         </snapshotRepository>
     </distributionManagement>
 
