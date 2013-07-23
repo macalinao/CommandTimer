@@ -192,6 +192,21 @@ public class CommandTimer extends JavaPlugin {
     }
 
     /**
+     * Gets a CommandSet from the corresponding command.
+     *
+     * @param command
+     * @return
+     */
+    public CommandSet getCommandSet(String command) {
+        for (Entry<String, CommandSet> e : commands.entrySet()) {
+            if (command.startsWith(e.getKey())) {
+                return e.getValue();
+            }
+        }
+        return null;
+    }
+
+    /**
      * Gets a CTPlayer.
      *
      * @param name

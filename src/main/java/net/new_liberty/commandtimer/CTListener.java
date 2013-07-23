@@ -28,6 +28,9 @@ public class CTListener implements Listener {
         String cmd = e.getMessage();
         cmd = cmd.substring(1, cmd.length());
 
-
+        CommandSet set = plugin.getCommandSet(cmd);
+        if (set == null) {
+            return;
+        }
     }
 }
