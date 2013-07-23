@@ -1,4 +1,4 @@
-package net.new_liberty.commandtimer.api;
+package net.new_liberty.commandtimer;
 
 import net.new_liberty.commandtimer.CommandTimer;
 import net.new_liberty.commandtimer.models.CommandSet;

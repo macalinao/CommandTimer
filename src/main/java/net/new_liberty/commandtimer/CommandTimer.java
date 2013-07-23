@@ -1,6 +1,5 @@
 package net.new_liberty.commandtimer;
 
-import net.new_liberty.commandtimer.api.CTPlayer;
 import net.new_liberty.commandtimer.models.CommandSet;
 import net.new_liberty.commandtimer.models.CommandSetGroup;
 import net.new_liberty.commandtimer.timer.TimerManager;
