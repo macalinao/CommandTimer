@@ -1,4 +1,4 @@
-package net.new_liberty.commandtimer;
+package net.new_liberty.commandtimer.timer;
 
 import org.bukkit.scheduler.BukkitRunnable;
 

@@ -1,9 +1,10 @@
-package net.new_liberty.commandtimer;
+package net.new_liberty.commandtimer.models;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import net.new_liberty.commandtimer.CommandTimer;
 
 /**
  * Represents a set of commands.

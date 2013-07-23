@@ -1,4 +1,7 @@
-package net.new_liberty.commandtimer;
+package net.new_liberty.commandtimer.api;
+
+import net.new_liberty.commandtimer.CommandTimer;
+import net.new_liberty.commandtimer.models.CommandSet;
 
 /**
  * Represents a player in CommandTimer.

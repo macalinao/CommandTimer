@@ -1,5 +1,6 @@
 package net.new_liberty.commandtimer;
 
+import net.new_liberty.commandtimer.models.CommandSet;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;

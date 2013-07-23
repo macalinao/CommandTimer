@@ -1,10 +1,13 @@
-package net.new_liberty.commandtimer;
+package net.new_liberty.commandtimer.timer;
 
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import net.new_liberty.commandtimer.models.CommandSet;
+import net.new_liberty.commandtimer.models.CommandSetGroup;
+import net.new_liberty.commandtimer.CommandTimer;
 
 /**
  * Manages player timers.

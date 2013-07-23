@@ -1,6 +1,7 @@
-package net.new_liberty.commandtimer;
+package net.new_liberty.commandtimer.models;
 
 import java.util.Map;
+import net.new_liberty.commandtimer.CommandTimer;
 
 /**
  * Represents a group of CommandSets.
