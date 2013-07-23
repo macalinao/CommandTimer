@@ -66,12 +66,43 @@ public class TimerManager {
     }
 
     /**
+     * Gets the warmup of this player.
+     *
+     * @param name
+     * @return
+     */
+    public CommandExecution getWarmup(String name) {
+        return warmups.get(name);
+    }
+
+    /**
      * Gets a list of all warmup timers.
      *
      * @return
      */
     public List<CommandExecution> getWarmups() {
         return new ArrayList<CommandExecution>(warmups.values());
+    }
+
+    /**
+     * Removes the warmup of a player.
+     *
+     * @param player
+     */
+    public void removeWarmup(CommandExecution warmup) {
+        warmups.remove(warmup.getPlayer());
+    }
+
+    /**
+     * Starts a warmup for a player.
+     *
+     * @param player
+     * @param command
+     * @param set
+     * @param group
+     */
+    public void startWarmup(String player, String command, CommandSet set, CommandSetGroup group) {
+        warmups.put(player, new CommandExecution(player, command, set, group));
     }
 
     /**
@@ -119,17 +150,5 @@ public class TimerManager {
             cooldowns.put(player, cds);
         }
         return cds;
-    }
-
-    /**
-     * Starts a warmup for a player.
-     *
-     * @param player
-     * @param command
-     * @param set
-     * @param group
-     */
-    public void startWarmup(String player, String command, CommandSet set, CommandSetGroup group) {
-        warmups.put(player, new CommandExecution(player, command, set, group));
     }
 }

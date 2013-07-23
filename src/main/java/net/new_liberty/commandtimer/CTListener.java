@@ -2,6 +2,7 @@ package net.new_liberty.commandtimer;
 
 import net.new_liberty.commandtimer.models.CommandSet;
 import net.new_liberty.commandtimer.models.CommandSetGroup;
+import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerCommandPreprocessEvent;
@@ -31,10 +32,21 @@ public class CTListener implements Listener {
 
         CommandSet set = plugin.getCommandSet(cmd);
         if (set == null) {
-            return;
+            return; // Ignore if this command isn't part of a set
         }
 
-        CTPlayer p = plugin.getPlayer(e.getPlayer().getName());
+        Player player = e.getPlayer();
+        CTPlayer p = plugin.getPlayer(player.getName());
         CommandSetGroup g = p.getGroup();
+        if (g == null) {
+            return; // Ignore if player isn't in a group
+        }
+
+        // Check if we're already warming up. Don't let them use commands while doing so.
+        if (p.isWarmingUp()) {
+            player.sendMessage(plugin.getMessage("warmup-in-progress"));
+            e.setCancelled(true);
+            return;
+        }
     }
 }

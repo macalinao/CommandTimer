@@ -45,6 +45,24 @@ public class CommandExecution {
     }
 
     /**
+     * Gets the player associated with this command execution.
+     *
+     * @return
+     */
+    public String getPlayer() {
+        return player;
+    }
+
+    /**
+     * Gets the command associated with this command execution.
+     *
+     * @return
+     */
+    public String getCommand() {
+        return command;
+    }
+
+    /**
      * Checks if this warmup timer has expired.
      *
      * @return True if this warmup has expired
