@@ -2,6 +2,7 @@ package net.new_liberty.commandtimer.models;
 
 import java.util.Map;
 import net.new_liberty.commandtimer.CommandTimer;
+import org.bukkit.permissions.Permission;
 
 /**
  * Represents a group of CommandSets.
@@ -42,5 +43,14 @@ public final class CommandSetGroup {
     public int getCooldown(CommandSet set) {
         Integer r = cooldowns.get(set);
         return r == null ? 0 : r;
+    }
+
+    /**
+     * Gets the permission of this group.
+     *
+     * @return
+     */
+    public String getPermission() {
+        return "commandtimer.groups." + id;
     }
 }

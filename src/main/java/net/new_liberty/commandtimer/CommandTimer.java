@@ -14,6 +14,8 @@ import java.util.logging.Level;
 import org.bukkit.Bukkit;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.FileConfiguration;
+import org.bukkit.entity.Player;
+import org.bukkit.permissions.Permission;
 import org.bukkit.plugin.java.JavaPlugin;
 
 /**
@@ -189,9 +191,33 @@ public class CommandTimer extends JavaPlugin {
                 }
 
                 CommandSetGroup group = new CommandSetGroup(this, key, warmups, cooldowns);
+
+                // Create and add a permission
+                Permission perm = new Permission(group.getPermission());
+                Bukkit.getPluginManager().addPermission(perm);
+
                 groups.put(key, group);
             }
         }
+    }
+
+    /**
+     * Gets the CommandSetGroup of a given player.
+     *
+     * @param p
+     * @return
+     */
+    public CommandSetGroup getGroup(Player p) {
+        if (p == null) {
+            return null; // Player is offline, silently fail
+        }
+
+        for (CommandSetGroup g : groups.values()) {
+            if (p.hasPermission(g.getPermission())) {
+                return g;
+            }
+        }
+        return null;
     }
 
     /**

@@ -1,7 +1,8 @@
 package net.new_liberty.commandtimer;
 
-import net.new_liberty.commandtimer.CommandTimer;
 import net.new_liberty.commandtimer.models.CommandSet;
+import net.new_liberty.commandtimer.models.CommandSetGroup;
+import org.bukkit.Bukkit;
 
 /**
  * Represents a player in CommandTimer.
@@ -46,5 +47,15 @@ public class CTPlayer {
      */
     public int getCooldownTime(CommandSet set) {
         return plugin.getTimers().getCooldownTime(name, set);
+    }
+
+    /**
+     * Gets this player's CommandSetGroup. Note: The player must be online for
+     * this to work!
+     *
+     * @return
+     */
+    public CommandSetGroup getGroup() {
+        return plugin.getGroup(Bukkit.getPlayerExact(name));
     }
 }
