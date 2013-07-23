@@ -5,6 +5,7 @@
 messages:
   warmup: '&6Command will run in &c%time% seconds. Don''t move.'
   warmup-cancelled: '&cPending command request cancelled.'
+  warmup-in-progress: '&cThis command is warming up. Don''t move.'
   cooldown: '&cError: &6You must wait &c%time% seconds to use this command again.'
   interact-blocked: '&cError: &6You can''t do this while the command is warming up!'
 
@@ -17,12 +18,14 @@ sets:
     messages:
       warmup: '&6Teleporting your horse in %time% seconds. Don''t move.'
       warmup-cancelled: '&cHorse teleportation cancelled.'
+      warmup-in-progress: '&cThis horse teleport is warming up. Don''t move.'
     commands:
       - horse tp
   teleport:
     messages:
       warmup: '&6Teleporting in %time% seconds. Don''t move.'
       warmup-cancelled: '&cPending teleportation request cancelled.'
+      warmup-in-progress: '&cThis teleport is warming up. Don''t move.'
     commands:
       - home
       - back
