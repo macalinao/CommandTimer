@@ -29,6 +29,11 @@ public class CommandTimer extends JavaPlugin {
         DEFAULT_MESSAGES = builder.build();
     }
     /**
+     * Manages our timers (warmups and cooldowns)
+     */
+    private TimerManager timers;
+
+    /**
      * Stores the global messages.
      */
     private Map<String, String> messages;
@@ -52,6 +57,9 @@ public class CommandTimer extends JavaPlugin {
     public void onEnable() {
         saveDefaultConfig();
         loadConfig();
+
+        timers = new TimerManager(this);
+        timers.startTasks();
     }
 
     /**
