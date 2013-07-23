@@ -69,6 +69,7 @@ public class CTListener implements Listener {
         if (wu != 0) {
             // Do a warmup
             p.startWarmup(cmd, set);
+            player.sendMessage(plugin.getMessage("warmup").replaceAll("%time%", Integer.toString(wu)));
             e.setCancelled(true);
             return;
         }
