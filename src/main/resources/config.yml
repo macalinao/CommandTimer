@@ -62,7 +62,6 @@ sets:
 # Each group contains multiple sections with a key corresponding to a set.
 # Under these sections, you can specify the desired warmup and cooldown to use.
 # By not specifying one, the cooldown won't be used.
-# All groups inherit from default, and this currently can't be changed.
 groups:
   default:
     horses:
@@ -72,10 +71,16 @@ groups:
       warmup: 8
       cooldown: 15
   fivesec:
+    horses:
+      warmup: 5
+      cooldown: 15
     teleport:
       warmup: 5
       cooldown: 15
   twosec:
+    horses:
+      warmup: 5
+      cooldown: 15
     teleport:
       warmup: 2
       cooldown: 15
