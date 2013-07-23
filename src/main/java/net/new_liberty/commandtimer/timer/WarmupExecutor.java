@@ -17,7 +17,6 @@ public class WarmupExecutor extends BukkitRunnable {
         for (CommandExecution warmup : manager.getWarmups()) {
             if (warmup.isWarmupExpired()) {
                 warmup.execute();
-                manager.finishWarmup(warmup);
             }
         }
     }

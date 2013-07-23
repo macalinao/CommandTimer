@@ -36,7 +36,16 @@ public class CTPlayer {
      * @return
      */
     public boolean isWarmingUp() {
-        return plugin.getTimers().isWarmingUp(name);
+        return getWarmup() != null;
+    }
+
+    /**
+     * Gets the CommandExecution (warmup) associated with a player.
+     *
+     * @return
+     */
+    public CommandExecution getWarmup() {
+        return plugin.getTimers().getWarmup(name);
     }
 
     /**
@@ -58,5 +67,15 @@ public class CTPlayer {
      */
     public CommandSetGroup getGroup() {
         return plugin.getGroup(Bukkit.getPlayerExact(name));
+    }
+
+    /**
+     * Starts a warmup for this player.
+     *
+     * @param cmd
+     * @param set
+     */
+    public void startWarmup(String cmd, CommandSet set) {
+        plugin.getTimers().startWarmup(name, cmd, set, getGroup());
     }
 }

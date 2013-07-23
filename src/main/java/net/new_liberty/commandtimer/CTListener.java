@@ -2,6 +2,7 @@ package net.new_liberty.commandtimer;
 
 import net.new_liberty.commandtimer.models.CommandSet;
 import net.new_liberty.commandtimer.models.CommandSetGroup;
+import net.new_liberty.commandtimer.timer.CommandExecution;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -43,9 +44,14 @@ public class CTListener implements Listener {
         }
 
         // Check if we're already warming up. Don't let them use commands while doing so.
-        if (p.isWarmingUp()) {
-            player.sendMessage(plugin.getMessage("warmup-in-progress"));
-            e.setCancelled(true);
+        CommandExecution ce = p.getWarmup();
+        if (ce != null) {
+            if (ce.isWarmupExpired()) {
+                plugin.getTimers().finishWarmup(ce);
+            } else {
+                player.sendMessage(plugin.getMessage("warmup-in-progress"));
+                e.setCancelled(true);
+            }
             return;
         }
 
@@ -58,5 +64,15 @@ public class CTListener implements Listener {
             return;
         }
 
+        // Check if we have to do warmups
+        int wu = g.getWarmup(set);
+        if (wu != 0) {
+            // Do a warmup
+            p.startWarmup(cmd, set);
+            e.setCancelled(true);
+            return;
+        }
+
+        // No warmup (or the warmup has been cancelled) so don't do anything.
     }
 }
