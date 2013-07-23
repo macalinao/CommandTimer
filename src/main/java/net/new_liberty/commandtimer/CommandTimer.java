@@ -8,6 +8,7 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
 import java.util.logging.Level;
+import org.bukkit.Bukkit;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -57,6 +58,8 @@ public class CommandTimer extends JavaPlugin {
     public void onEnable() {
         saveDefaultConfig();
         loadConfig();
+
+        Bukkit.getPluginManager().registerEvents(new CTListener(this), this);
 
         timers = new TimerManager(this);
         timers.startTasks();
