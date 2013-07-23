@@ -1,8 +1,10 @@
 package net.new_liberty.commandtimer;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 /**
  * Manages player timers.
@@ -15,8 +17,21 @@ public class TimerManager {
      */
     private final WarmupExecutor warmupExecutor;
 
-    private Map<String, WarmupTimer> warmups;
+    /**
+     * Stores warmups. Each player can only have one warmup running at a time.
+     */
+    private Map<String, CommandExecution> warmups;
 
+    /**
+     * Stores cooldowns.
+     */
+    private Map<String, Set<CommandExecution>> cooldowns;
+
+    /**
+     * C'tor
+     *
+     * @param plugin
+     */
     public TimerManager(CommandTimer plugin) {
         this.plugin = plugin;
 
@@ -38,9 +53,9 @@ public class TimerManager {
     }
 
     /**
-     * Returns true if this player is warming up.
+     * Checks if this player is warming up.
      *
-     * @param player The name of the player, case sensitive.
+     * @param player
      * @return
      */
     public boolean isWarmingUp(String player) {
@@ -52,8 +67,55 @@ public class TimerManager {
      *
      * @return
      */
-    public List<WarmupTimer> getWarmups() {
-        return new ArrayList<WarmupTimer>(warmups.values());
+    public List<CommandExecution> getWarmups() {
+        return new ArrayList<CommandExecution>(warmups.values());
+    }
+
+    /**
+     * Gets the time remaining for the player's cooldown to expire for a
+     * CommandSet.
+     *
+     * @param player
+     * @param set
+     * @return
+     */
+    public int getCooldownTime(String player, CommandSet set) {
+        // Find the CommandExecution
+        CommandExecution c = null;
+        Set<CommandExecution> cds = getCooldownsInternal(player);
+        for (CommandExecution ce : cds) {
+            if (ce.getSet().equals(set)) {
+                c = ce;
+                break;
+            }
+        }
+
+        // If none then we aren't cooling down
+        if (c == null) {
+            return -1;
+        }
+
+        // If expired then we aren't cooling down
+        int cd = c.getCdTimeLeft();
+        if (cd == -1) {
+            cds.remove(c); // Remove the now useless cooldown
+        }
+        return cd;
+    }
+
+    /**
+     * Gets the current cooldowns a player is waiting on.
+     *
+     * @param player
+     * @return
+     */
+    private Set<CommandExecution> getCooldownsInternal(String player) {
+        Set<CommandExecution> cds = cooldowns.get(player);
+        if (cds == null) {
+            cds = new HashSet<CommandExecution>();
+            cooldowns.put(player, cds);
+        }
+        return cds;
     }
 
     /**
@@ -61,9 +123,10 @@ public class TimerManager {
      *
      * @param player
      * @param command
-     * @param duration
+     * @param set
+     * @param group
      */
-    public void startWarmup(String player, String command, int duration) {
-        warmups.put(player, new WarmupTimer(player, command, duration));
+    public void startWarmup(String player, String command, CommandSet set, CommandSetGroup group) {
+        warmups.put(player, new CommandExecution(player, command, set, group));
     }
 }

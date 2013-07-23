@@ -192,6 +192,25 @@ public class CommandTimer extends JavaPlugin {
     }
 
     /**
+     * Gets a CTPlayer.
+     *
+     * @param name
+     * @return
+     */
+    public CTPlayer getPlayer(String name) {
+        return new CTPlayer(this, name);
+    }
+
+    /**
+     * Gets the TimerManager instance.
+     *
+     * @return
+     */
+    public TimerManager getTimers() {
+        return timers;
+    }
+
+    /**
      * Gets the default message.
      *
      * @param key

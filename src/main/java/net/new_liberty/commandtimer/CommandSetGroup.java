@@ -20,4 +20,26 @@ public final class CommandSetGroup {
         this.warmups = warmups;
         this.cooldowns = cooldowns;
     }
+
+    /**
+     * Gets the warmup of the given CommandSet.
+     *
+     * @param set
+     * @return
+     */
+    public int getWarmup(CommandSet set) {
+        Integer r = warmups.get(set);
+        return r == null ? 0 : r;
+    }
+
+    /**
+     * Gets the cooldown of the given CommandSet.
+     *
+     * @param set
+     * @return
+     */
+    public int getCooldown(CommandSet set) {
+        Integer r = cooldowns.get(set);
+        return r == null ? 0 : r;
+    }
 }
