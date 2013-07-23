@@ -1,5 +1,6 @@
 package net.new_liberty.commandtimer;
 
+import com.google.common.collect.ImmutableMap;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -15,6 +16,18 @@ import org.bukkit.plugin.java.JavaPlugin;
  * Command Timer.
  */
 public class CommandTimer extends JavaPlugin {
+    private static final Map<String, String> DEFAULT_MESSAGES;
+
+    static {
+        ImmutableMap.Builder<String, String> builder = ImmutableMap.<String, String>builder();
+
+        builder.put("warmup", "&6Command will run in &c%time% seconds. Don't move.");
+        builder.put("warmup-cancelled", "&cPending command request cancelled.");
+        builder.put("cooldown", "&cError: &6You must wait &c%time% seconds to use this command again.");
+        builder.put("interact-blocked", "&cError: &6You can''t do this while the command is warming up!");
+
+        DEFAULT_MESSAGES = builder.build();
+    }
     /**
      * Stores the global messages.
      */
@@ -173,6 +186,10 @@ public class CommandTimer extends JavaPlugin {
      * @return
      */
     public String getMessage(String key) {
-        return messages.get(key);
+        String msg = messages.get(key);
+        if (msg == null) {
+            msg = DEFAULT_MESSAGES.get(key);
+        }
+        return msg;
     }
 }
