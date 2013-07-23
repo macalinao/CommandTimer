@@ -13,21 +13,21 @@ public class TimerManager {
     /**
      * Task to check all warmup timers.
      */
-    private final WarmupCheckTask warmupTask;
+    private final WarmupExecutor warmupExecutor;
 
     private Map<String, WarmupTimer> warmups;
 
     public TimerManager(CommandTimer plugin) {
         this.plugin = plugin;
 
-        warmupTask = new WarmupCheckTask(this);
+        warmupExecutor = new WarmupExecutor(this);
     }
 
     /**
      * Starts all tasks.
      */
     public void startTasks() {
-        warmupTask.runTaskTimer(plugin, 2L, 2L);
+        warmupExecutor.runTaskTimer(plugin, 2L, 2L);
     }
 
     /**

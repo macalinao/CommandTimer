@@ -1,15 +1,14 @@
 package net.new_liberty.commandtimer;
 
-import org.bukkit.Bukkit;
 import org.bukkit.scheduler.BukkitRunnable;
 
 /**
- * Task that checks all timers.
+ * Task that executes all expired warmup timers.
  */
-public class WarmupCheckTask extends BukkitRunnable {
+public class WarmupExecutor extends BukkitRunnable {
     private final TimerManager manager;
 
-    public WarmupCheckTask(TimerManager manager) {
+    public WarmupExecutor(TimerManager manager) {
         this.manager = manager;
     }
 
