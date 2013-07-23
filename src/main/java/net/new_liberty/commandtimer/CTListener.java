@@ -48,5 +48,15 @@ public class CTListener implements Listener {
             e.setCancelled(true);
             return;
         }
+
+        // Check if we're currently on cooldown
+        int cd = p.getCooldownTime(set);
+        if (cd != 0) {
+            // We're on cooldown
+            player.sendMessage(plugin.getMessage("cooldown").replaceAll("%time%", Integer.toString(cd)));
+            e.setCancelled(true);
+            return;
+        }
+
     }
 }
