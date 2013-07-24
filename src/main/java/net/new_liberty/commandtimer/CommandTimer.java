@@ -79,13 +79,11 @@ public class CommandTimer extends JavaPlugin {
      * Loads the configuration.
      */
     private void loadConfig() {
-        FileConfiguration config = getConfig();
-
-        messages = ConfigLoader.loadMessages(config);
-        Map<String, CommandSet>[] sc = ConfigLoader.loadSets(config);
-        sets = sc[0];
-        commands = sc[1];
-        groups = ConfigLoader.loadSetGroups(config, sets);
+        Map[] c = ConfigLoader.loadConfig(getConfig());
+        messages = c[0];
+        sets = c[1];
+        commands = c[2];
+        groups = c[3];
     }
 
     /**

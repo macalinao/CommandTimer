@@ -24,6 +24,13 @@ public final class ConfigLoader {
     private ConfigLoader() {
     }
 
+    public static Map[] loadConfig(Configuration config) {
+        Map msgs = loadMessages(config);
+        Map[] sets = loadSets(config);
+        Map groups = loadSetGroups(config, sets[0]);
+        return new Map[]{msgs, sets[0], sets[1], groups};
+    }
+
     /**
      * Loads messages from the config.
      *
