@@ -8,6 +8,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerCommandPreprocessEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
+import org.bukkit.event.player.PlayerMoveEvent;
 
 /**
  * Listener
@@ -25,6 +26,21 @@ public class CTListener implements Listener {
      */
     public CTListener(CommandTimer plugin) {
         this.plugin = plugin;
+    }
+
+    @EventHandler
+    public void onPlayerMove(PlayerMoveEvent e) {
+        // Check if we changed blocks
+        if (e.getFrom().getBlock().equals(e.getTo().getBlock())) {
+            return;
+        }
+
+        Player player = e.getPlayer();
+        CTPlayer p = plugin.getPlayer(player.getName());
+        if (p.isWarmingUp()) {
+            player.sendMessage(plugin.getMessage("warmup-cancelled"));
+            e.setCancelled(true);
+        }
     }
 
     @EventHandler
