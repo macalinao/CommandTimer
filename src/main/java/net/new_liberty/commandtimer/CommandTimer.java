@@ -81,57 +81,11 @@ public class CommandTimer extends JavaPlugin {
     private void loadConfig() {
         FileConfiguration config = getConfig();
 
-        // Load messages
-        messages = new HashMap<String, String>();
-        ConfigurationSection messagesSection = config.getConfigurationSection("messages");
-        if (messagesSection != null) {
-            for (Entry<String, Object> msg : messagesSection.getValues(false).entrySet()) {
-                messages.put(msg.getKey(), msg.getValue().toString());
-            }
-        }
-
-        // Load sets
-        sets = new HashMap<String, CommandSet>();
-        commands = new HashMap<String, CommandSet>();
-        ConfigurationSection setsSection = config.getConfigurationSection("sets");
-        if (setsSection != null) {
-            for (String key : setsSection.getKeys(false)) {
-                // Get the set section
-                ConfigurationSection setSection = setsSection.getConfigurationSection(key);
-                CommandSet set = ConfigLoader.loadSet(key, setSection, commands);
-                if (set == null) {
-                    getLogger().log(Level.WARNING, "Invalid set configuration for set ''{0}''. Skipping.", key);
-                    continue;
-                }
-                sets.put(key, set);
-
-                // Add the commands to our mapping
-                for (String cmd : set.getCommands()) {
-                    commands.put(cmd, set);
-                }
-            }
-        }
-
-        // Load groups
-        groups = new HashMap<String, CommandSetGroup>();
-        ConfigurationSection groupsSection = config.getConfigurationSection("groups");
-        if (groupsSection != null) {
-            for (String key : groupsSection.getKeys(false)) {
-                // Get the group section
-                ConfigurationSection groupSection = groupsSection.getConfigurationSection(key);
-
-                CommandSetGroup group = ConfigLoader.loadSetGroup(key, groupSection, sets);
-                if (group == null) {
-                    log(Level.WARNING, "Invalid group configuration for group '" + key + "'. Skipping.");
-                }
-
-                // Create and add a permission
-                Permission perm = new Permission(group.getPermission());
-                Bukkit.getPluginManager().addPermission(perm);
-
-                groups.put(key, group);
-            }
-        }
+        messages = ConfigLoader.loadMessages(config);
+        Map<String, CommandSet>[] sc = ConfigLoader.loadSets(config);
+        sets = sc[0];
+        commands = sc[1];
+        groups = ConfigLoader.loadSetGroups(config, sets);
     }
 
     /**
