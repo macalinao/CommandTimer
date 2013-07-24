@@ -7,6 +7,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerCommandPreprocessEvent;
+import org.bukkit.event.player.PlayerInteractEvent;
 
 /**
  * Listener
@@ -24,6 +25,16 @@ public class CTListener implements Listener {
      */
     public CTListener(CommandTimer plugin) {
         this.plugin = plugin;
+    }
+
+    @EventHandler
+    public void onPlayerInteract(PlayerInteractEvent e) {
+        Player player = e.getPlayer();
+        CTPlayer p = plugin.getPlayer(player.getName());
+        if (p.isWarmingUp()) {
+            player.sendMessage(plugin.getMessage("interact-blocked"));
+            e.setCancelled(true);
+        }
     }
 
     @EventHandler
