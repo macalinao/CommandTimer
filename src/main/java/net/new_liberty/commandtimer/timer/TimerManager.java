@@ -85,12 +85,21 @@ public class TimerManager {
     }
 
     /**
-     * Removes the warmup of a player.
+     * Cancels a player's warmup.
+     *
+     * @param command
+     */
+    public void cancelWarmup(String player) {
+        warmups.remove(player);
+    }
+
+    /**
+     * Removes the warmup.
      *
      * @param command
      */
     public void finishWarmup(CommandExecution command) {
-        warmups.remove(command.getPlayer());
+        cancelWarmup(command.getPlayer());
         if (!command.isCooldownExpired()) {
             // No cooldown, we're going to add this to the player's cooldown list
             getCooldownsInternal(command.getPlayer()).add(command);

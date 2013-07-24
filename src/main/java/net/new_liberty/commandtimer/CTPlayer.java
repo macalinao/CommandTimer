@@ -49,6 +49,13 @@ public class CTPlayer {
     }
 
     /**
+     * Cancels this player's warmup.
+     */
+    public void cancelWarmup() {
+        plugin.getTimers().cancelWarmup(name);
+    }
+
+    /**
      * Gets the time left for this player's cooldown to expire. Returns -1 if it
      * is already expired.
      *

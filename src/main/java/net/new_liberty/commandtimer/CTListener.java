@@ -39,6 +39,7 @@ public class CTListener implements Listener {
         CTPlayer p = plugin.getPlayer(player.getName());
         if (p.isWarmingUp()) {
             player.sendMessage(plugin.getMessage("warmup-cancelled"));
+            p.cancelWarmup();
             e.setCancelled(true);
         }
     }
@@ -49,6 +50,7 @@ public class CTListener implements Listener {
         CTPlayer p = plugin.getPlayer(player.getName());
         if (p.isWarmingUp()) {
             player.sendMessage(plugin.getMessage("warmup-no-interact"));
+            p.cancelWarmup();
             e.setCancelled(true);
         }
     }
