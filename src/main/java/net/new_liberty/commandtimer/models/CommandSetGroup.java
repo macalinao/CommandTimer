@@ -1,23 +1,18 @@
 package net.new_liberty.commandtimer.models;
 
 import java.util.Map;
-import net.new_liberty.commandtimer.CommandTimer;
-import org.bukkit.permissions.Permission;
 
 /**
  * Represents a group of CommandSets.
  */
 public final class CommandSetGroup {
-    private final CommandTimer plugin;
-
     private final String id;
 
     private final Map<CommandSet, Integer> warmups;
 
     private final Map<CommandSet, Integer> cooldowns;
 
-    public CommandSetGroup(CommandTimer plugin, String id, Map<CommandSet, Integer> warmups, Map<CommandSet, Integer> cooldowns) {
-        this.plugin = plugin;
+    public CommandSetGroup(String id, Map<CommandSet, Integer> warmups, Map<CommandSet, Integer> cooldowns) {
         this.id = id;
         this.warmups = warmups;
         this.cooldowns = cooldowns;

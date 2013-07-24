@@ -9,6 +9,7 @@ import java.util.logging.Level;
 import net.new_liberty.commandtimer.models.CommandSet;
 import org.bukkit.configuration.ConfigurationSection;
 import static net.new_liberty.commandtimer.CommandTimer.log;
+import net.new_liberty.commandtimer.models.CommandSetGroup;
 
 /**
  * Loads the configuration.
@@ -72,5 +73,40 @@ public final class ConfigLoader {
         }
 
         return new CommandSet(id, messages, commands);
+    }
+
+    public static CommandSetGroup loadSetGroup(String key, ConfigurationSection section, Map<String, CommandSet> sets) {
+        if (section == null) {
+            return null;
+        }
+
+        Map<CommandSet, Integer> warmups = new HashMap<CommandSet, Integer>();
+        Map<CommandSet, Integer> cooldowns = new HashMap<CommandSet, Integer>();
+
+        // Get the group's command set configurations
+        for (String set : section.getKeys(false)) {
+            // Verify if this is an actual CommandSet
+            CommandSet cs = sets.get(set);
+            if (cs == null) {
+                // Skip if not a section
+                log(Level.WARNING, "The set '" + set + "' does not exist for group '" + key + "' to use. Skipping.");
+                continue;
+            }
+
+            ConfigurationSection setSection = section.getConfigurationSection(set);
+            if (setSection == null) {
+                // Skip if not a section
+                log(Level.WARNING, "Invalid group set configuration for group '" + key + "' and set '" + set + "'. Skipping.");
+                continue;
+            }
+
+            int warmup = setSection.getInt("warmup", 0);
+            warmups.put(cs, warmup);
+
+            int cooldown = setSection.getInt("cooldown", 0);
+            cooldowns.put(cs, cooldown);
+        }
+
+        return new CommandSetGroup(key, warmups, cooldowns);
     }
 }
