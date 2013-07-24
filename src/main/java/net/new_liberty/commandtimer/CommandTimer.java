@@ -22,6 +22,8 @@ import org.bukkit.plugin.java.JavaPlugin;
  * Command Timer.
  */
 public class CommandTimer extends JavaPlugin {
+    private static CommandTimer instance;
+
     private static final Map<String, String> DEFAULT_MESSAGES;
 
     static {
@@ -62,6 +64,8 @@ public class CommandTimer extends JavaPlugin {
 
     @Override
     public void onEnable() {
+        instance = this;
+
         saveDefaultConfig();
         loadConfig();
 
@@ -94,53 +98,11 @@ public class CommandTimer extends JavaPlugin {
             for (String key : setsSection.getKeys(false)) {
                 // Get the set section
                 ConfigurationSection setSection = setsSection.getConfigurationSection(key);
-                if (setSection == null) {
-                    // Skip if not a section
+                CommandSet set = ConfigLoader.loadSet(key, setSection, commands);
+                if (set == null) {
                     getLogger().log(Level.WARNING, "Invalid set configuration for set ''{0}''. Skipping.", key);
                     continue;
                 }
-
-                // Set messages
-                Map<String, String> setMessages = new HashMap<String, String>();
-                ConfigurationSection setMessagesSection = setSection.getConfigurationSection("messages");
-                if (setMessagesSection != null) {
-                    for (Entry<String, Object> setMessage : setMessagesSection.getValues(false).entrySet()) {
-                        setMessages.put(setMessage.getKey(), setMessage.getValue().toString());
-                    }
-                }
-
-                // Set commands
-                Set<String> setCommands = new HashSet<String>();
-                List<String> setCmdConfig = setSection.getStringList("commands");
-
-                cmd:
-                for (String setCmd : setCmdConfig) {
-                    // Lowercase the commands to make sure
-                    setCmd = setCmd.toLowerCase();
-
-                    // Check if the command has already been added in a different form to prevent conflicts
-
-                    // In this command set
-                    for (String cmd : setCommands) {
-                        if (cmd.startsWith(setCmd) || setCmd.startsWith(cmd)) {
-                            getLogger().log(Level.WARNING, "The command ''{0}'' from set ''{1}'' conflicts with the command ''{2}'' from the same set.", new Object[]{setCmd, key, cmd});
-                            continue cmd;
-                        }
-                    }
-
-                    // In previous command sets
-                    for (String cmd : commands.keySet()) {
-                        if (cmd.startsWith(setCmd) || setCmd.startsWith(cmd)) {
-                            getLogger().log(Level.WARNING, "The command ''{0}'' from set ''{1}'' conflicts with the command ''{2}'' from set ''{3}''.", new Object[]{setCmd, key, cmd, commands.get(cmd).getId()});
-                            continue cmd;
-                        }
-                    }
-
-                    setCommands.add(setCmd);
-                }
-
-                // Add the set to memory
-                CommandSet set = new CommandSet(this, key, setMessages, setCommands);
                 sets.put(key, set);
 
                 // Add the commands to our mapping
@@ -266,5 +228,25 @@ public class CommandTimer extends JavaPlugin {
             msg = DEFAULT_MESSAGES.get(key);
         }
         return msg;
+    }
+
+    /**
+     * Gets this CommandTimer instance.
+     *
+     * @return
+     */
+    public static CommandTimer getInstance() {
+        return instance;
+    }
+
+    /**
+     * Logs a message.
+     *
+     * @param level
+     * @param msg
+     */
+    public static void log(Level level, String msg) {
+        instance.getLogger().log(level, msg);
+
     }
 }

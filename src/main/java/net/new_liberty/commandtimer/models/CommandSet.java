@@ -10,16 +10,13 @@ import net.new_liberty.commandtimer.CommandTimer;
  * Represents a set of commands.
  */
 public final class CommandSet {
-    private final CommandTimer plugin;
-
     private final String id;
 
     private final Map<String, String> messages;
 
     private final Set<String> cmds;
 
-    public CommandSet(CommandTimer plugin, String id, Map<String, String> messages, Set<String> cmds) {
-        this.plugin = plugin;
+    public CommandSet(String id, Map<String, String> messages, Set<String> cmds) {
         this.id = id;
         this.messages = messages;
         this.cmds = cmds;
@@ -43,7 +40,7 @@ public final class CommandSet {
     public String getMessage(String key) {
         String ret = messages.get(key);
         if (ret == null) {
-            ret = plugin.getMessage(key);
+            ret = CommandTimer.getInstance().getMessage(key);
         }
         return ret;
     }
