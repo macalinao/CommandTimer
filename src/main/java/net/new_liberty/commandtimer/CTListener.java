@@ -48,7 +48,7 @@ public class CTListener implements Listener {
         Player player = e.getPlayer();
         CTPlayer p = plugin.getPlayer(player.getName());
         if (p.isWarmingUp()) {
-            player.sendMessage(plugin.getMessage("interact-blocked"));
+            player.sendMessage(plugin.getMessage("warmup-no-interact"));
             e.setCancelled(true);
         }
     }

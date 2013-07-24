@@ -6,8 +6,8 @@ messages:
   warmup: '&6Command will run in &c%time% seconds. Don''t move.'
   warmup-cancelled: '&cPending command request cancelled.'
   warmup-in-progress: '&cThis command is warming up. Don''t move.'
+  warmup-no-interact: '&cError: &6You can''t do this while the command is warming up!'
   cooldown: '&cError: &6You must wait &c%time% seconds to use this command again.'
-  interact-blocked: '&cError: &6You can''t do this while the command is warming up!'
 
 # Sets are sets of commands that are grouped together with one warmup/cooldown.
 # Messages override the set messages for this specific set.
