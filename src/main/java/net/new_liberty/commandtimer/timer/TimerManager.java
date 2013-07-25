@@ -1,6 +1,7 @@
 package net.new_liberty.commandtimer.timer;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
@@ -23,7 +24,7 @@ public class TimerManager {
     /**
      * Stores warmups. Each player can only have one warmup running at a time.
      */
-    private Map<String, CommandExecution> warmups;
+    private Map<String, CommandExecution> warmups = new HashMap<String, CommandExecution>();
 
     /**
      * Stores cooldowns.
