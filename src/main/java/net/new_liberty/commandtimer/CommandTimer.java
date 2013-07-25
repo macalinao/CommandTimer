@@ -1,5 +1,6 @@
 package net.new_liberty.commandtimer;
 
+import net.new_liberty.commandtimer.listeners.CTListener;
 import net.new_liberty.commandtimer.timer.TimerManager;
 import com.google.common.collect.ImmutableMap;
 import java.util.Map;
