@@ -71,15 +71,10 @@ public class CTListener implements Listener {
             return; // Ignore if player isn't in a group
         }
 
-        // Check if we're already warming up. Don't let them use commands while doing so.
         CommandExecution ce = p.getWarmup();
         if (ce != null) {
-            if (ce.isWarmupExpired()) {
-                plugin.getTimers().finishWarmup(ce);
-            } else {
-                player.sendMessage(plugin.getMessage("warmup-in-progress"));
-                e.setCancelled(true);
-            }
+            player.sendMessage(plugin.getMessage("warmup-in-progress"));
+            e.setCancelled(true);
             return;
         }
 
