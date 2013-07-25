@@ -102,9 +102,21 @@ public class TimerManager {
     public void finishWarmup(CommandExecution command) {
         cancelWarmup(command.getPlayer());
         if (!command.isCooldownExpired()) {
-            // No cooldown, we're going to add this to the player's cooldown list
+            // There's a cooldown, we're going to add this to the player's cooldown list
             getCooldownsInternal(command.getPlayer()).add(command);
         }
+    }
+
+    /**
+     * Starts a cooldown for a command.
+     *
+     * @param player
+     * @param command
+     * @param set
+     * @param group
+     */
+    public void startCooldown(String player, String command, CommandSet set, CommandSetGroup group) {
+        getCooldownsInternal(player).add(new CommandExecution(player, command, set, group));
     }
 
     /**

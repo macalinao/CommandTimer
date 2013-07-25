@@ -97,6 +97,12 @@ public class CTListener implements Listener {
             return;
         }
 
-        // No warmup (or the warmup has been cancelled) so don't do anything.
+        // Command run
+
+        // Check if we have to do cooldowns
+        if (g.getCooldown(set) != 0) {
+            // Do a cooldown
+            p.startCooldown(cmd, set);
+        }
     }
 }

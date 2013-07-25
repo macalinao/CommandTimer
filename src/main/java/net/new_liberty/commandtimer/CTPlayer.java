@@ -85,4 +85,14 @@ public class CTPlayer {
     public void startWarmup(String cmd, CommandSet set) {
         plugin.getTimers().startWarmup(name, cmd, set, getGroup());
     }
+
+    /**
+     * Starts a cooldown for this player.
+     *
+     * @param cmd
+     * @param set
+     */
+    public void startCooldown(String cmd, CommandSet set) {
+        plugin.getTimers().startCooldown(name, cmd, set, getGroup());
+    }
 }
