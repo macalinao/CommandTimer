@@ -6,6 +6,7 @@ import java.util.Map;
 import java.util.logging.Level;
 import net.new_liberty.commandtimer.set.CommandSetManager;
 import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 import org.bukkit.plugin.java.JavaPlugin;
 
 /**
@@ -105,7 +106,7 @@ public class CommandTimer extends JavaPlugin {
         if (msg == null) {
             msg = DEFAULT_MESSAGES.get(key);
         }
-        return msg;
+        return ChatColor.translateAlternateColorCodes('&', msg);
     }
 
     /**
