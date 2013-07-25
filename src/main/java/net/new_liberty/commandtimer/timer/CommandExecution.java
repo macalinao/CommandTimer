@@ -97,7 +97,7 @@ public class CommandExecution {
     public int getCdTimeLeft() {
         long diff = System.currentTimeMillis() - getCooldownExpiryTime();
         if (diff < 0) {
-            return -1;
+            return 0;
         }
 
         return (int) Math.ceil(diff / 1000);

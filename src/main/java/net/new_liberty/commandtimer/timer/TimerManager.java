@@ -140,12 +140,12 @@ public class TimerManager {
 
         // If none then we aren't cooling down
         if (c == null) {
-            return -1;
+            return 0;
         }
 
         // If expired then we aren't cooling down
         int cd = c.getCdTimeLeft();
-        if (cd == -1) {
+        if (cd == 0) {
             cds.remove(c); // Remove the now useless cooldown
         }
         return cd;
