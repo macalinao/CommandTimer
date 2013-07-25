@@ -1,13 +1,14 @@
 package net.new_liberty.commandtimer.set;
 
 import java.util.Map;
+import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
+import org.bukkit.permissions.Permission;
 
 /**
  * Manages CommandSets.
  */
 public class CommandSetManager {
-
     /**
      * Stores sets.
      */
@@ -23,10 +24,27 @@ public class CommandSetManager {
      */
     private Map<String, CommandSetGroup> groups;
 
+    /**
+     * C'tor.
+     *
+     * @param sets
+     * @param commands
+     * @param groups
+     */
     public CommandSetManager(Map<String, CommandSet> sets, Map<String, CommandSet> commands, Map<String, CommandSetGroup> groups) {
         this.sets = sets;
         this.commands = commands;
         this.groups = groups;
+    }
+
+    /**
+     * Sets up permissions.
+     */
+    public void setupPermissions() {
+        for (CommandSetGroup group : groups.values()) {
+            Permission p = new Permission(group.getPermission());
+            Bukkit.getPluginManager().addPermission(p);
+        }
     }
 
     /**

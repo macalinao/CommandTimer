@@ -197,10 +197,6 @@ public final class ConfigLoader {
                     continue;
                 }
 
-                // Create and add a permission
-                Permission perm = new Permission(group.getPermission());
-                Bukkit.getPluginManager().addPermission(perm);
-
                 groups.put(key, group);
             }
         }

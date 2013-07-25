@@ -62,6 +62,7 @@ public class CommandTimer extends JavaPlugin {
         Map[] c = ConfigLoader.loadConfig(getConfig());
         messages = c[0];
         commandSets = new CommandSetManager(c[1], c[2], c[3]);
+        commandSets.setupPermissions();
     }
 
     /**
