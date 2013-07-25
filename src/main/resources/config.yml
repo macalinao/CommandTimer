@@ -4,9 +4,10 @@
 # The messages that will be displayed in the plugin.
 messages:
   warmup: '&6Command will run in &c%time% seconds. Don''t move.'
-  warmup-cancelled: '&cPending command request cancelled.'
   warmup-in-progress: '&cThis command is warming up. Don''t move.'
-  warmup-no-interact: '&cPending command request cancelled due to interacting with an object.'
+  warmup-no-damage: '&cPending command request cancelled.'
+  warmup-no-interact: '&cPending command request cancelled.'
+  warmup-no-move: '&cPending command request cancelled.'
   cooldown: '&cError: &6You must wait &c%time% seconds to use this command again.'
 
 # Sets are sets of commands that are grouped together with one warmup/cooldown.
@@ -17,17 +18,19 @@ sets:
   horses:
     messages:
       warmup: '&6Teleporting your horse in %time% seconds. Don''t move.'
-      warmup-cancelled: '&cHorse teleportation cancelled.'
       warmup-in-progress: '&cThis horse teleport is warming up. Don''t move.'
-      warmup-no-interact: '&cHorse teleportation cancelled due to interacting with an object.'
+      warmup-no-damage: '&cHorse teleportation cancelled.'
+      warmup-no-interact: '&cHorse teleportation cancelled.'
+      warmup-no-move: '&cHorse teleportation cancelled.'
     commands:
       - horse tp
   teleport:
     messages:
       warmup: '&6Teleporting in %time% seconds. Don''t move.'
-      warmup-cancelled: '&cPending teleportation request cancelled.'
       warmup-in-progress: '&cThis teleport is warming up. Don''t move.'
-      warmup-no-interact: '&cPending teleportation request cancelled due to interacting with an object.'
+      warmup-no-damage: '&cPending teleportation request cancelled.'
+      warmup-no-interact: '&cPending teleportation request cancelled.'
+      warmup-no-move: '&cPending teleportation request cancelled.'
     commands:
       - home
       - back

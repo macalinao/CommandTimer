@@ -6,6 +6,7 @@ import net.new_liberty.commandtimer.timer.CommandExecution;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.player.PlayerCommandPreprocessEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerMoveEvent;
@@ -29,29 +30,39 @@ public class CTListener implements Listener {
     }
 
     @EventHandler
-    public void onPlayerMove(PlayerMoveEvent e) {
-        // Check if we changed blocks
-        if (e.getFrom().getBlock().equals(e.getTo().getBlock())) {
-            return;
-        }
-
-        Player player = e.getPlayer();
-        CTPlayer p = plugin.getPlayer(player.getName());
-        if (p.isWarmingUp()) {
-            player.sendMessage(p.getWarmup().getSet().getMessage("warmup-cancelled"));
-            p.cancelWarmup();
+    public void onPlayerDamage(EntityDamageEvent e) {
+        if (e.getEntity() instanceof Player) {
+            cancelWarmup((Player) e.getEntity(), "damage");
         }
     }
 
     @EventHandler
     public void onPlayerInteract(PlayerInteractEvent e) {
-        Player player = e.getPlayer();
+        cancelWarmup(e.getPlayer(), "interact");
+    }
+
+    @EventHandler
+    public void onPlayerMove(PlayerMoveEvent e) {
+        if (!e.getFrom().getBlock().equals(e.getTo().getBlock())) {
+            cancelWarmup(e.getPlayer(), "move");
+        }
+    }
+
+    /**
+     * Cancels the warmup if it should be canceled.
+     *
+     * @param player
+     * @param type
+     * @return
+     */
+    private boolean cancelWarmup(Player player, String type) {
         CTPlayer p = plugin.getPlayer(player.getName());
         if (p.isWarmingUp()) {
-            player.sendMessage(p.getWarmup().getSet().getMessage("warmup-no-interact"));
+            player.sendMessage(p.getWarmup().getSet().getMessage("warmup-no-" + type));
             p.cancelWarmup();
-            e.setCancelled(true);
+            return false;
         }
+        return true;
     }
 
     @EventHandler
