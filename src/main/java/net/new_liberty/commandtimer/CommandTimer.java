@@ -23,7 +23,7 @@ public class CommandTimer extends JavaPlugin {
         builder.put("warmup", "&6Command will run in &c%time% seconds. Don't move.");
         builder.put("warmup-cancelled", "&cPending command request cancelled.");
         builder.put("warmup-in-progress", "&cThis command is warming up. Don't move.");
-        builder.put("warmup-no-interact", "&cError: &6You can't do this while the command is warming up!");
+        builder.put("warmup-no-interact", "&cPending command request cancelled due to interacting with an object.");
         builder.put("cooldown", "&cError: &6You must wait &c%time% seconds to use this command again.");
 
         DEFAULT_MESSAGES = builder.build();
