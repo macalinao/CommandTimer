@@ -38,7 +38,7 @@ public class CTListener implements Listener {
         Player player = e.getPlayer();
         CTPlayer p = plugin.getPlayer(player.getName());
         if (p.isWarmingUp()) {
-            player.sendMessage(plugin.getMessage("warmup-cancelled"));
+            player.sendMessage(p.getWarmup().getSet().getMessage("warmup-cancelled"));
             p.cancelWarmup();
         }
     }
@@ -48,7 +48,7 @@ public class CTListener implements Listener {
         Player player = e.getPlayer();
         CTPlayer p = plugin.getPlayer(player.getName());
         if (p.isWarmingUp()) {
-            player.sendMessage(plugin.getMessage("warmup-no-interact"));
+            player.sendMessage(p.getWarmup().getSet().getMessage("warmup-no-interact"));
             p.cancelWarmup();
             e.setCancelled(true);
         }
@@ -73,7 +73,7 @@ public class CTListener implements Listener {
 
         CommandExecution ce = p.getWarmup();
         if (ce != null) {
-            player.sendMessage(plugin.getMessage("warmup-in-progress"));
+            player.sendMessage(set.getMessage("warmup-in-progress"));
             e.setCancelled(true);
             return;
         }
@@ -82,7 +82,7 @@ public class CTListener implements Listener {
         int cd = p.getCooldownTime(set);
         if (cd != 0) {
             // We're on cooldown
-            player.sendMessage(plugin.getMessage("cooldown").replaceAll("%time%", Integer.toString(cd)));
+            player.sendMessage(set.getMessage("cooldown").replaceAll("%time%", Integer.toString(cd)));
             e.setCancelled(true);
             return;
         }
@@ -92,7 +92,7 @@ public class CTListener implements Listener {
         if (wu != 0) {
             // Do a warmup
             p.startWarmup(cmd, set);
-            player.sendMessage(plugin.getMessage("warmup").replaceAll("%time%", Integer.toString(wu)));
+            player.sendMessage(set.getMessage("warmup").replaceAll("%time%", Integer.toString(wu)));
             e.setCancelled(true);
             return;
         }
