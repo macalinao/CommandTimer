@@ -47,6 +47,7 @@ public class CommandTimer extends JavaPlugin {
         instance = this;
 
         saveDefaultConfig();
+        reloadConfig();
         loadConfig();
 
         Bukkit.getPluginManager().registerEvents(new CTListener(this), this);
