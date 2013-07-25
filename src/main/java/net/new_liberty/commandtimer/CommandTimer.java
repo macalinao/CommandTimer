@@ -1,10 +1,11 @@
 package net.new_liberty.commandtimer;
 
-import net.new_liberty.commandtimer.listeners.CTListener;
+import net.new_liberty.commandtimer.listeners.CommandListener;
 import net.new_liberty.commandtimer.timer.TimerManager;
 import com.google.common.collect.ImmutableMap;
 import java.util.Map;
 import java.util.logging.Level;
+import net.new_liberty.commandtimer.listeners.WarmupCancelListener;
 import net.new_liberty.commandtimer.set.CommandSetManager;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -22,9 +23,10 @@ public class CommandTimer extends JavaPlugin {
         ImmutableMap.Builder<String, String> builder = ImmutableMap.<String, String>builder();
 
         builder.put("warmup", "&6Command will run in &c%time% seconds. Don't move.");
-        builder.put("warmup-cancelled", "&cPending command request cancelled.");
         builder.put("warmup-in-progress", "&cThis command is warming up. Don't move.");
-        builder.put("warmup-no-interact", "&cPending command request cancelled due to interacting with an object.");
+        builder.put("warmup-no-damage", "&cPending command request cancelled.");
+        builder.put("warmup-no-interact", "&cPending command request cancelled.");
+        builder.put("warmup-no-move", "&cPending command request cancelled.");
         builder.put("cooldown", "&cError: &6You must wait &c%time% seconds to use this command again.");
 
         DEFAULT_MESSAGES = builder.build();
@@ -52,7 +54,8 @@ public class CommandTimer extends JavaPlugin {
         reloadConfig();
         loadConfig();
 
-        Bukkit.getPluginManager().registerEvents(new CTListener(this), this);
+        Bukkit.getPluginManager().registerEvents(new CommandListener(this), this);
+        Bukkit.getPluginManager().registerEvents(new WarmupCancelListener(this), this);
 
         timers = new TimerManager(this);
         timers.startTasks();
