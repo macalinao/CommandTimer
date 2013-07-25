@@ -106,7 +106,7 @@ public class CommandTimer extends JavaPlugin {
      */
     public CommandSet getCommandSet(String command) {
         for (Entry<String, CommandSet> e : commands.entrySet()) {
-            if (e.getValue().hasCommand(command)) {
+            if (command.startsWith(e.getKey() + " ")) {
                 return e.getValue();
             }
         }
