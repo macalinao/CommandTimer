@@ -29,7 +29,7 @@ public class TimerManager {
     /**
      * Stores cooldowns.
      */
-    private Map<String, Set<CommandExecution>> cooldowns;
+    private Map<String, Set<CommandExecution>> cooldowns = new HashMap<String, Set<CommandExecution>>();
 
     /**
      * C'tor
