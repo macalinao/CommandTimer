@@ -3,17 +3,14 @@ package net.new_liberty.commandtimer.set;
 import java.io.File;
 import java.net.URL;
 import java.util.Map;
+import net.new_liberty.commandtimer.CommandTimer;
 import net.new_liberty.commandtimer.ConfigLoader;
-import org.bukkit.Bukkit;
 import org.bukkit.configuration.Configuration;
 import org.bukkit.configuration.file.YamlConfiguration;
-import org.bukkit.permissions.Permission;
 import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.*;
-import org.junit.BeforeClass;
 import org.junit.runner.RunWith;
-import org.mockito.Mockito;
 import org.powermock.api.mockito.PowerMockito;
 import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.junit4.PowerMockRunner;
@@ -21,11 +18,15 @@ import org.powermock.modules.junit4.PowerMockRunner;
 /**
  * Tests CommandSetManager
  */
+@RunWith(PowerMockRunner.class)
+@PrepareForTest({CommandTimer.class})
 public class CommandSetManagerTest {
     private CommandSetManager i;
 
     @Before
     public void setup() throws Exception {
+        PowerMockito.mockStatic(CommandTimer.class);
+
         URL url = getClass().getResource("/config.yml");
         Configuration config = YamlConfiguration.loadConfiguration(new File(url.getFile()));
 

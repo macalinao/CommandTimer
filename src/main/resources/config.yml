@@ -55,8 +55,6 @@ sets:
       - return
       - tpask
       - etpask
-      - warps
-      - ewarps
 
 # Groups are configurations of timers.
 # Each group contains multiple sections with a key corresponding to a set.
