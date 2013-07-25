@@ -40,7 +40,6 @@ public class CTListener implements Listener {
         if (p.isWarmingUp()) {
             player.sendMessage(plugin.getMessage("warmup-cancelled"));
             p.cancelWarmup();
-            e.setCancelled(true);
         }
     }
 
