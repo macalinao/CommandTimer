@@ -1,7 +1,7 @@
 package net.new_liberty.commandtimer;
 
-import net.new_liberty.commandtimer.models.CommandSet;
-import net.new_liberty.commandtimer.models.CommandSetGroup;
+import net.new_liberty.commandtimer.set.CommandSet;
+import net.new_liberty.commandtimer.set.CommandSetGroup;
 import net.new_liberty.commandtimer.timer.TimerManager;
 import com.google.common.collect.ImmutableMap;
 import java.util.Map;

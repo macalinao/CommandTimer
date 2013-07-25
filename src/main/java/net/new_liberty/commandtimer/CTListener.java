@@ -1,7 +1,7 @@
 package net.new_liberty.commandtimer;
 
-import net.new_liberty.commandtimer.models.CommandSet;
-import net.new_liberty.commandtimer.models.CommandSetGroup;
+import net.new_liberty.commandtimer.set.CommandSet;
+import net.new_liberty.commandtimer.set.CommandSetGroup;
 import net.new_liberty.commandtimer.timer.CommandExecution;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -58,7 +58,7 @@ public class CTListener implements Listener {
     @EventHandler
     public void onPlayerCommandPreprocess(PlayerCommandPreprocessEvent e) {
         String cmd = e.getMessage();
-        cmd = cmd.substring(1, cmd.length());
+        cmd = cmd.substring(1);
 
         CommandSet set = plugin.getCommandSet(cmd);
         if (set == null) {

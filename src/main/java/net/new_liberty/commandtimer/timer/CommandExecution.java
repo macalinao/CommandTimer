@@ -1,7 +1,7 @@
 package net.new_liberty.commandtimer.timer;
 
-import net.new_liberty.commandtimer.models.CommandSet;
-import net.new_liberty.commandtimer.models.CommandSetGroup;
+import net.new_liberty.commandtimer.set.CommandSet;
+import net.new_liberty.commandtimer.set.CommandSetGroup;
 import org.bukkit.Bukkit;
 import org.bukkit.command.CommandException;
 import org.bukkit.entity.Player;

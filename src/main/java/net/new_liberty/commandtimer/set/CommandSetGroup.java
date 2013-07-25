@@ -1,4 +1,4 @@
-package net.new_liberty.commandtimer.models;
+package net.new_liberty.commandtimer.set;
 
 import java.util.Map;
 
