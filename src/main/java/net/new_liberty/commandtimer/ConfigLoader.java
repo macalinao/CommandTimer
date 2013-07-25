@@ -77,22 +77,23 @@ public final class ConfigLoader {
         cmd:
         for (String setCmd : setCmdConfig) {
             // Lowercase the commands to make sure
-            setCmd = setCmd.toLowerCase();
+            setCmd = setCmd.toLowerCase() + " ";
 
             // Check if the command has already been added in a different form to prevent conflicts
 
             // In this command set
             for (String cmd : commands) {
-                if (cmd.startsWith(setCmd) || setCmd.startsWith(cmd)) {
+                if (cmd.startsWith(setCmd) || setCmd.startsWith(cmd + " ")) {
                     log(Level.WARNING, "The command '" + setCmd + "' from set '" + id + "' conflicts with the command '" + cmd + "' from the same set.");
                     continue cmd;
                 }
             }
 
             // In previous command sets
-            for (String cmd : commandMappings.keySet()) {
-                if (cmd.startsWith(setCmd) || setCmd.startsWith(cmd)) {
-                    log(Level.WARNING, "The command '" + setCmd + "' from set '" + id + "' conflicts with the command '" + cmd + "' from set '" + commandMappings.get(cmd).getId() + "'.");
+            for (CommandSet set : commandMappings.values()) {
+                String command = set.getCommand(setCmd);
+                if (command != null) {
+                    log(Level.WARNING, "The command '" + setCmd + "' from set '" + id + "' conflicts with the command '" + command + "' from set '" + set.getId() + "'.");
                     continue cmd;
                 }
             }

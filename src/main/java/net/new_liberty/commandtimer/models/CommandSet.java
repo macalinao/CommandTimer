@@ -46,11 +46,37 @@ public class CommandSet {
     }
 
     /**
+     * Gets the command of this set corresponding to the given command if it
+     * exists.
+     *
+     * @param command
+     * @return
+     */
+    public String getCommand(String command) {
+        for (String cmd : cmds) {
+            if (cmd.startsWith(command.toLowerCase() + " ")) {
+                return cmd;
+            }
+        }
+        return null;
+    }
+
+    /**
      * Gets a list of all commands in this CommandSet.
      *
      * @return
      */
     public List<String> getCommands() {
         return new ArrayList<String>(cmds);
+    }
+
+    /**
+     * Returns true if this set has the given command.
+     *
+     * @param command
+     * @return
+     */
+    public boolean hasCommand(String command) {
+        return getCommand(command) != null;
     }
 }

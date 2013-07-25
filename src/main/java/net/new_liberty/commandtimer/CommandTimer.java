@@ -4,18 +4,11 @@ import net.new_liberty.commandtimer.models.CommandSet;
 import net.new_liberty.commandtimer.models.CommandSetGroup;
 import net.new_liberty.commandtimer.timer.TimerManager;
 import com.google.common.collect.ImmutableMap;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
-import java.util.Set;
 import java.util.logging.Level;
 import org.bukkit.Bukkit;
-import org.bukkit.configuration.ConfigurationSection;
-import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
-import org.bukkit.permissions.Permission;
 import org.bukkit.plugin.java.JavaPlugin;
 
 /**
@@ -113,7 +106,7 @@ public class CommandTimer extends JavaPlugin {
      */
     public CommandSet getCommandSet(String command) {
         for (Entry<String, CommandSet> e : commands.entrySet()) {
-            if (command.startsWith(e.getKey())) {
+            if (e.getValue().hasCommand(command)) {
                 return e.getValue();
             }
         }
