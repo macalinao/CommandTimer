@@ -14,6 +14,7 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <author>AlbireoX</author>
         <buildNumber>0</buildNumber>
+        <powermock.version>1.5.1</powermock.version>
         <mainClass>${project.groupId}.${project.artifactId}.${project.name}</mainClass>
     </properties>
 
@@ -66,6 +67,18 @@
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
             <version>4.11</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.powermock</groupId>
+            <artifactId>powermock-module-junit4</artifactId>
+            <version>${powermock.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.powermock</groupId>
+            <artifactId>powermock-api-mockito</artifactId>
+            <version>${powermock.version}</version>
             <scope>test</scope>
         </dependency>
     </dependencies>

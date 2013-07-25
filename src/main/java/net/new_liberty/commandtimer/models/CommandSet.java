@@ -9,7 +9,7 @@ import net.new_liberty.commandtimer.CommandTimer;
 /**
  * Represents a set of commands.
  */
-public final class CommandSet {
+public class CommandSet {
     private final String id;
 
     private final Map<String, String> messages;

@@ -5,7 +5,7 @@ import java.util.Map;
 /**
  * Represents a group of CommandSets.
  */
-public final class CommandSetGroup {
+public class CommandSetGroup {
     private final String id;
 
     private final Map<CommandSet, Integer> warmups;

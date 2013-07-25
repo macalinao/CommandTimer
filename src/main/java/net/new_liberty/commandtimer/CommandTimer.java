@@ -170,6 +170,5 @@ public class CommandTimer extends JavaPlugin {
      */
     public static void log(Level level, String msg) {
         instance.getLogger().log(level, msg);
-
     }
 }
