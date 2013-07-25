@@ -1,14 +1,11 @@
 package net.new_liberty.commandtimer;
 
-import net.new_liberty.commandtimer.set.CommandSet;
-import net.new_liberty.commandtimer.set.CommandSetGroup;
 import net.new_liberty.commandtimer.timer.TimerManager;
 import com.google.common.collect.ImmutableMap;
 import java.util.Map;
-import java.util.Map.Entry;
 import java.util.logging.Level;
+import net.new_liberty.commandtimer.set.CommandSetManager;
 import org.bukkit.Bukkit;
-import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 
 /**
@@ -31,6 +28,11 @@ public class CommandTimer extends JavaPlugin {
         DEFAULT_MESSAGES = builder.build();
     }
     /**
+     * Manages our command sets
+     */
+    private CommandSetManager commandSets;
+
+    /**
      * Manages our timers (warmups and cooldowns)
      */
     private TimerManager timers;
@@ -39,21 +41,6 @@ public class CommandTimer extends JavaPlugin {
      * Stores the global messages.
      */
     private Map<String, String> messages;
-
-    /**
-     * Stores sets.
-     */
-    private Map<String, CommandSet> sets;
-
-    /**
-     * Stores commands mapped to their corresponding sets.
-     */
-    private Map<String, CommandSet> commands;
-
-    /**
-     * Stores the command groups.
-     */
-    private Map<String, CommandSetGroup> groups;
 
     @Override
     public void onEnable() {
@@ -74,43 +61,25 @@ public class CommandTimer extends JavaPlugin {
     private void loadConfig() {
         Map[] c = ConfigLoader.loadConfig(getConfig());
         messages = c[0];
-        sets = c[1];
-        commands = c[2];
-        groups = c[3];
+        commandSets = new CommandSetManager(c[1], c[2], c[3]);
     }
 
     /**
-     * Gets the CommandSetGroup of a given player.
+     * Gets the CommandSetManager instance.
      *
-     * @param p
      * @return
      */
-    public CommandSetGroup getGroup(Player p) {
-        if (p == null) {
-            return null; // Player is offline, silently fail
-        }
-
-        for (CommandSetGroup g : groups.values()) {
-            if (p.hasPermission(g.getPermission())) {
-                return g;
-            }
-        }
-        return groups.get("default");
+    public CommandSetManager getCommandSets() {
+        return commandSets;
     }
 
     /**
-     * Gets a CommandSet from the corresponding command.
+     * Gets the TimerManager instance.
      *
-     * @param command
      * @return
      */
-    public CommandSet getCommandSet(String command) {
-        for (Entry<String, CommandSet> e : commands.entrySet()) {
-            if (command.startsWith(e.getKey() + " ")) {
-                return e.getValue();
-            }
-        }
-        return null;
+    public TimerManager getTimers() {
+        return timers;
     }
 
     /**
@@ -121,15 +90,6 @@ public class CommandTimer extends JavaPlugin {
      */
     public CTPlayer getPlayer(String name) {
         return new CTPlayer(this, name);
-    }
-
-    /**
-     * Gets the TimerManager instance.
-     *
-     * @return
-     */
-    public TimerManager getTimers() {
-        return timers;
     }
 
     /**

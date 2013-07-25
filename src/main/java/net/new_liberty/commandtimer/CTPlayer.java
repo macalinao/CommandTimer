@@ -73,7 +73,7 @@ public class CTPlayer {
      * @return
      */
     public CommandSetGroup getGroup() {
-        return plugin.getGroup(Bukkit.getPlayerExact(name));
+        return plugin.getCommandSets().getGroup(Bukkit.getPlayerExact(name));
     }
 
     /**

@@ -60,7 +60,7 @@ public class CTListener implements Listener {
         String cmd = e.getMessage();
         cmd = cmd.substring(1);
 
-        CommandSet set = plugin.getCommandSet(cmd);
+        CommandSet set = plugin.getCommandSets().getSet(cmd);
         if (set == null) {
             return; // Ignore if this command isn't part of a set
         }
