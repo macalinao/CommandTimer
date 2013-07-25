@@ -63,44 +63,44 @@ public final class ConfigLoader {
 
         // Set messages
         Map<String, String> messages = new HashMap<String, String>();
-        ConfigurationSection setMessagesSection = section.getConfigurationSection("messages");
-        if (setMessagesSection != null) {
-            for (Map.Entry<String, Object> setMessage : setMessagesSection.getValues(false).entrySet()) {
-                messages.put(setMessage.getKey(), setMessage.getValue().toString());
+        ConfigurationSection messagesSection = section.getConfigurationSection("messages");
+        if (messagesSection != null) {
+            for (Map.Entry<String, Object> message : messagesSection.getValues(false).entrySet()) {
+                messages.put(message.getKey(), message.getValue().toString());
             }
         }
 
         // Set commands
-        Set<String> commands = new HashSet<String>();
-        List<String> setCmdConfig = section.getStringList("commands");
+        Set<String> cmdSet = new HashSet<String>();
+        List<String> cmds = section.getStringList("commands");
 
         cmd:
-        for (String setCmd : setCmdConfig) {
+        for (String cmd : cmds) {
             // Lowercase the commands to make sure
-            setCmd = setCmd.toLowerCase() + " ";
+            cmd = cmd.toLowerCase();
 
             // Check if the command has already been added in a different form to prevent conflicts
 
             // In this command set
-            for (String cmd : commands) {
-                if (cmd.startsWith(setCmd) || setCmd.startsWith(cmd + " ")) {
-                    log(Level.WARNING, "The command '" + setCmd + "' from set '" + id + "' conflicts with the command '" + cmd + "' from the same set.");
+            for (String setCmd : cmdSet) {
+                if (setCmd.startsWith(cmd + " ") || cmd.startsWith(setCmd + " ")) {
+                    log(Level.WARNING, "The command '" + cmd + "' from set '" + id + "' conflicts with the command '" + setCmd + "' from the same set.");
                     continue cmd;
                 }
             }
 
             // In previous command sets
             for (CommandSet set : commandMappings.values()) {
-                String command = set.getCommand(setCmd);
-                if (command != null) {
-                    log(Level.WARNING, "The command '" + setCmd + "' from set '" + id + "' conflicts with the command '" + command + "' from set '" + set.getId() + "'.");
+                String otherCmd = set.getCommand(cmd);
+                if (otherCmd != null) {
+                    log(Level.WARNING, "The command '" + cmd + "' from set '" + id + "' conflicts with the command '" + otherCmd + "' from set '" + set.getId() + "'.");
                     continue cmd;
                 }
             }
-            commands.add(setCmd);
+            cmdSet.add(cmd);
         }
 
-        return new CommandSet(id, messages, commands);
+        return new CommandSet(id, messages, cmdSet);
     }
 
     /**
