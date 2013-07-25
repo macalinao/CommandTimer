@@ -162,7 +162,6 @@ public final class ConfigLoader {
 
             ConfigurationSection setSection = section.getConfigurationSection(set);
             if (setSection == null) {
-                // Skip if not a section
                 log(Level.WARNING, "Invalid group set configuration for group '" + key + "' and set '" + set + "'. Skipping.");
                 continue;
             }
@@ -195,6 +194,7 @@ public final class ConfigLoader {
                 CommandSetGroup group = loadSetGroup(key, groupSection, sets);
                 if (group == null) {
                     log(Level.WARNING, "Invalid group configuration for group '" + key + "'. Skipping.");
+                    continue;
                 }
 
                 // Create and add a permission
@@ -204,6 +204,12 @@ public final class ConfigLoader {
                 groups.put(key, group);
             }
         }
+
+        if (!groups.containsKey("default")) {
+            log(Level.INFO, "There isn't a default group; creating one with no settings.");
+            groups.put("default", new CommandSetGroup("default", new HashMap<CommandSet, Integer>(), new HashMap<CommandSet, Integer>()));
+        }
+
         return groups;
     }
 }

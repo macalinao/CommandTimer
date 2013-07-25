@@ -95,7 +95,7 @@ public class CommandTimer extends JavaPlugin {
                 return g;
             }
         }
-        return null;
+        return groups.get("default");
     }
 
     /**
