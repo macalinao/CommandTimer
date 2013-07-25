@@ -1,5 +1,7 @@
 package net.new_liberty.commandtimer.set;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
@@ -73,11 +75,21 @@ public class CommandSetManager {
      * @return
      */
     public CommandSet getSet(String command) {
+        command = command.toLowerCase();
         for (Map.Entry<String, CommandSet> e : commands.entrySet()) {
-            if (command.startsWith(e.getKey() + " ")) {
+            if (command.equals(e.getKey()) || command.startsWith(e.getKey() + " ")) {
                 return e.getValue();
             }
         }
         return null;
+    }
+
+    /**
+     * Gets a list of all CommandSets.
+     *
+     * @return
+     */
+    public List<CommandSet> getSets() {
+        return new ArrayList<CommandSet>(sets.values());
     }
 }

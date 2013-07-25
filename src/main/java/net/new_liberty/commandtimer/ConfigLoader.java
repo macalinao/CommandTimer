@@ -83,7 +83,7 @@ public final class ConfigLoader {
 
             // In this command set
             for (String setCmd : cmdSet) {
-                if (setCmd.startsWith(cmd + " ") || cmd.startsWith(setCmd + " ")) {
+                if (setCmd.equals(cmd) || setCmd.startsWith(cmd + " ") || cmd.startsWith(setCmd + " ")) {
                     log(Level.WARNING, "The command '" + cmd + "' from set '" + id + "' conflicts with the command '" + setCmd + "' from the same set.");
                     continue cmd;
                 }
