@@ -37,8 +37,6 @@ sets:
       - ewarps
       - tpaccept
       - tpahere
-      - tpa
-      - back
       - tpyes
       - etpyes
       - etpaccept
@@ -50,7 +48,6 @@ sets:
       - homes
       - ehomes
       - espawn
-      - ewarp
       - eback
       - return
       - tpask
