@@ -89,6 +89,7 @@ public class TimerManager {
                 }
             }
         }
+        c.save(f);
     }
 
     /**
