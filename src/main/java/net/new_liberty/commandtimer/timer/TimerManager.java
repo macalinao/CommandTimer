@@ -89,7 +89,6 @@ public class TimerManager {
                 }
             }
         }
-        c.save(f);
     }
 
     /**
@@ -99,13 +98,13 @@ public class TimerManager {
      */
     public void save() throws IOException {
         File f = new File(plugin.getDataFolder(), "data.yml");
-        f.createNewFile();
 
-        YamlConfiguration c = YamlConfiguration.loadConfiguration(f);
+        YamlConfiguration c = new YamlConfiguration();
         ConfigurationSection cds = c.createSection("cooldowns");
         for (Entry<String, Set<CommandExecution>> e : cooldowns.entrySet()) {
             cds.set(e.getKey(), new ArrayList<CommandExecution>(e.getValue()));
         }
+        c.save(f);
     }
 
     /**
