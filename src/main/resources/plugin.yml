@@ -10,13 +10,7 @@ permissions:
   commandtimer.*:
     description: Grants all CommandTimer permissions.
     children:
-      - commandtimer.bypass.*
-  commandtimer.bypass.*:
+      - commandtimer.bypass
+  commandtimer.bypass:
     description: Allows bypassing of all CommandTimer timers.
-    children:
-      - commandtimer.bypass.warmup
-      - commandtimer.bypass.cooldown
-  commandtimer.bypass.warmup:
-    description: Allows bypassing of CommandTimer warmups.
-  commandtimer.bypass.cooldown:
-    description: Allows bypassing of CommandTimer cooldowns.
+

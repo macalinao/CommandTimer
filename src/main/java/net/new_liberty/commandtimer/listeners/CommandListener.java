@@ -30,6 +30,10 @@ public class CommandListener implements Listener {
 
     @EventHandler
     public void onPlayerCommandPreprocess(PlayerCommandPreprocessEvent e) {
+        if (e.getPlayer().hasPermission("commandtimer.bypass")) {
+            return;
+        }
+
         String cmd = e.getMessage();
         cmd = cmd.substring(1);
 
