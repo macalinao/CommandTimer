@@ -28,6 +28,11 @@ public class TimerManager {
     private final WarmupExecutor warmupExecutor;
 
     /**
+     * Task to save the timers.
+     */
+    private final TimerSaveTask timerSaveTask;
+
+    /**
      * Stores warmups. Each player can only have one warmup running at a time.
      */
     private Map<String, CommandExecution> warmups;
@@ -46,6 +51,7 @@ public class TimerManager {
         this.plugin = plugin;
 
         warmupExecutor = new WarmupExecutor(this);
+        timerSaveTask = new TimerSaveTask(this);
     }
 
     /**
@@ -105,7 +111,8 @@ public class TimerManager {
      * Starts the tasks in this TimerManager.
      */
     private void startTasks() {
-        warmupExecutor.runTaskTimer(plugin, 2L, 2L);
+        warmupExecutor.runTaskTimer(plugin, 2, 2);
+        timerSaveTask.runTaskTimer(plugin, 20 * 60 * 5, 20 * 60 * 5); // Save every 5 minutes
     }
 
     /**

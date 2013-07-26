@@ -3,8 +3,10 @@ package net.new_liberty.commandtimer;
 import net.new_liberty.commandtimer.listeners.CommandListener;
 import net.new_liberty.commandtimer.timer.TimerManager;
 import com.google.common.collect.ImmutableMap;
+import java.io.IOException;
 import java.util.Map;
 import java.util.logging.Level;
+import java.util.logging.Logger;
 import net.new_liberty.commandtimer.listeners.WarmupCancelListener;
 import net.new_liberty.commandtimer.set.CommandSet;
 import net.new_liberty.commandtimer.set.CommandSetManager;
@@ -60,6 +62,15 @@ public class CommandTimer extends JavaPlugin {
 
         timers = new TimerManager(this);
         timers.initialize();
+    }
+
+    @Override
+    public void onDisable() {
+        try {
+            timers.save();
+        } catch (IOException ex) {
+            getLogger().log(Level.SEVERE, "Error when saving timers!", ex);
+        }
     }
 
     /**
