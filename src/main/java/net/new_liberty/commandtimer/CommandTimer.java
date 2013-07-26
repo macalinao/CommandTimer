@@ -122,7 +122,7 @@ public class CommandTimer extends JavaPlugin {
         if (msg == null) {
             msg = DEFAULT_MESSAGES.get(key);
         }
-        return ChatColor.translateAlternateColorCodes('&', msg);
+        return msg;
     }
 
     /**

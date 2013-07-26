@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import net.new_liberty.commandtimer.CommandTimer;
+import org.bukkit.ChatColor;
 
 /**
  * Represents a set of commands.
@@ -42,7 +43,7 @@ public class CommandSet {
         if (ret == null) {
             ret = CommandTimer.getInstance().getMessage(key);
         }
-        return ret;
+        return ChatColor.translateAlternateColorCodes('&', ret);
     }
 
     /**
