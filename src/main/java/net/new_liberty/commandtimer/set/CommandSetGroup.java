@@ -12,10 +12,26 @@ public class CommandSetGroup {
 
     private final Map<CommandSet, Integer> cooldowns;
 
+    /**
+     * C'tor
+     *
+     * @param id
+     * @param warmups
+     * @param cooldowns
+     */
     public CommandSetGroup(String id, Map<CommandSet, Integer> warmups, Map<CommandSet, Integer> cooldowns) {
         this.id = id;
         this.warmups = warmups;
         this.cooldowns = cooldowns;
+    }
+
+    /**
+     * Gets the id of this group.
+     *
+     * @return
+     */
+    public String getId() {
+        return id;
     }
 
     /**

@@ -50,6 +50,16 @@ public class CommandSetManager {
     }
 
     /**
+     * Gets a CommandSetGroup from its id.
+     *
+     * @param id
+     * @return
+     */
+    public CommandSetGroup getGroup(String id) {
+        return groups.get(id);
+    }
+
+    /**
      * Gets the CommandSetGroup of a given player.
      *
      * @param p
@@ -66,6 +76,16 @@ public class CommandSetManager {
             }
         }
         return groups.get("default");
+    }
+
+    /**
+     * Gets a set by its id.
+     *
+     * @param id
+     * @return
+     */
+    public CommandSet getSetById(String id) {
+        return sets.get(id);
     }
 
     /**

@@ -6,6 +6,7 @@ import com.google.common.collect.ImmutableMap;
 import java.util.Map;
 import java.util.logging.Level;
 import net.new_liberty.commandtimer.listeners.WarmupCancelListener;
+import net.new_liberty.commandtimer.set.CommandSet;
 import net.new_liberty.commandtimer.set.CommandSetManager;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -58,7 +59,7 @@ public class CommandTimer extends JavaPlugin {
         Bukkit.getPluginManager().registerEvents(new WarmupCancelListener(this), this);
 
         timers = new TimerManager(this);
-        timers.startTasks();
+        timers.initialize();
     }
 
     /**

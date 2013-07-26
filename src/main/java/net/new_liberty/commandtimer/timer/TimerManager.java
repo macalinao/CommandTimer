@@ -1,14 +1,20 @@
 package net.new_liberty.commandtimer.timer;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.Set;
+import java.util.logging.Level;
 import net.new_liberty.commandtimer.set.CommandSet;
 import net.new_liberty.commandtimer.set.CommandSetGroup;
 import net.new_liberty.commandtimer.CommandTimer;
+import org.bukkit.configuration.ConfigurationSection;
+import org.bukkit.configuration.file.YamlConfiguration;
 
 /**
  * Manages player timers.
@@ -24,12 +30,12 @@ public class TimerManager {
     /**
      * Stores warmups. Each player can only have one warmup running at a time.
      */
-    private Map<String, CommandExecution> warmups = new HashMap<String, CommandExecution>();
+    private Map<String, CommandExecution> warmups;
 
     /**
      * Stores cooldowns.
      */
-    private Map<String, Set<CommandExecution>> cooldowns = new HashMap<String, Set<CommandExecution>>();
+    private Map<String, Set<CommandExecution>> cooldowns;
 
     /**
      * C'tor
@@ -43,9 +49,62 @@ public class TimerManager {
     }
 
     /**
-     * Starts all tasks.
+     * Initializes this TimerManager.
      */
-    public void startTasks() {
+    public void initialize() {
+        try {
+            load();
+        } catch (IOException ex) {
+            plugin.getLogger().log(Level.SEVERE, "Error loading timer data!", ex);
+        }
+        startTasks();
+    }
+
+    /**
+     * Loads the data.
+     *
+     * @throws IOException
+     */
+    public void load() throws IOException {
+        warmups = new HashMap<String, CommandExecution>();
+        cooldowns = new HashMap<String, Set<CommandExecution>>();
+
+        File f = new File(plugin.getDataFolder(), "data.yml");
+        f.createNewFile();
+
+        YamlConfiguration c = YamlConfiguration.loadConfiguration(f);
+        ConfigurationSection cds = c.getConfigurationSection("cooldowns");
+        if (cds != null) {
+            for (String key : cds.getKeys(false)) {
+                Set<CommandExecution> set = getCooldownsInternal(key);
+                for (Object o : cds.getList(key)) {
+                    CommandExecution ce = (CommandExecution) o;
+                    set.add(ce);
+                }
+            }
+        }
+    }
+
+    /**
+     * Saves the data.
+     *
+     * @throws IOException
+     */
+    public void save() throws IOException {
+        File f = new File(plugin.getDataFolder(), "data.yml");
+        f.createNewFile();
+
+        YamlConfiguration c = YamlConfiguration.loadConfiguration(f);
+        ConfigurationSection cds = c.createSection("cooldowns");
+        for (Entry<String, Set<CommandExecution>> e : cooldowns.entrySet()) {
+            cds.set(e.getKey(), new ArrayList<CommandExecution>(e.getValue()));
+        }
+    }
+
+    /**
+     * Starts the tasks in this TimerManager.
+     */
+    private void startTasks() {
         warmupExecutor.runTaskTimer(plugin, 2L, 2L);
     }
 

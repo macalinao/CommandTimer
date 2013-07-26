@@ -1,15 +1,19 @@
 package net.new_liberty.commandtimer.timer;
 
+import com.google.common.collect.ImmutableMap;
+import java.util.Map;
+import net.new_liberty.commandtimer.CommandTimer;
 import net.new_liberty.commandtimer.set.CommandSet;
 import net.new_liberty.commandtimer.set.CommandSetGroup;
 import org.bukkit.Bukkit;
 import org.bukkit.command.CommandException;
+import org.bukkit.configuration.serialization.ConfigurationSerializable;
 import org.bukkit.entity.Player;
 
 /**
  * Contains a command that has been executed by a player.
  */
-public class CommandExecution {
+public class CommandExecution implements ConfigurationSerializable {
     private final String player;
 
     private final String command;
@@ -30,18 +34,30 @@ public class CommandExecution {
     private final long time;
 
     /**
-     * C'tor used for commands without a warmup.
+     * C'tor used for commands.
      *
      * @param player
      * @param command
      * @param set The CommandSet of this CommandExecution.
      */
     public CommandExecution(String player, String command, CommandSet set, CommandSetGroup group) {
+        this(player, command, set, group, System.currentTimeMillis());
+    }
+
+    /**
+     * Internal c'tor.
+     *
+     * @param player
+     * @param command
+     * @param set The CommandSet of this CommandExecution.
+     * @param time The time of the execution.
+     */
+    private CommandExecution(String player, String command, CommandSet set, CommandSetGroup group, long time) {
         this.player = player;
         this.command = command;
         this.set = set;
         this.group = group;
-        this.time = System.currentTimeMillis();
+        this.time = time;
     }
 
     /**
@@ -137,5 +153,41 @@ public class CommandExecution {
             ex.printStackTrace();
         }
         return true;
+    }
+
+    @Override
+    public Map<String, Object> serialize() {
+        return ImmutableMap.<String, Object>builder()
+                .put("player", player)
+                .put("command", command)
+                .put("set", set.getId())
+                .put("group", group.getId())
+                .put("time", time).build();
+    }
+
+    /**
+     * Deserializes the CommandExecution.
+     *
+     * @param s
+     * @return
+     */
+    public static CommandExecution deserialize(Map<String, Object> s) {
+        String player = s.get("player").toString();
+        String command = s.get("command").toString();
+        CommandSet set = CommandTimer.getInstance().getCommandSets().getSet(s.get("set").toString());
+        CommandSetGroup group = CommandTimer.getInstance().getCommandSets().getGroup(s.get("group").toString());
+        long time = ((Long) s.get("time")).longValue();
+
+        return new CommandExecution(player, command, set, group);
+    }
+
+    /**
+     * ValueOf
+     *
+     * @param s
+     * @return
+     */
+    public static CommandExecution valueOf(Map<String, Object> s) {
+        return deserialize(s);
     }
 }
