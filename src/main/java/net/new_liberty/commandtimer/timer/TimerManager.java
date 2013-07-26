@@ -15,6 +15,7 @@ import net.new_liberty.commandtimer.set.CommandSetGroup;
 import net.new_liberty.commandtimer.CommandTimer;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.YamlConfiguration;
+import org.bukkit.configuration.serialization.ConfigurationSerialization;
 
 /**
  * Manages player timers.
@@ -58,6 +59,8 @@ public class TimerManager {
      * Initializes this TimerManager.
      */
     public void initialize() {
+        ConfigurationSerialization.registerClass(CommandExecution.class);
+
         try {
             load();
         } catch (IOException ex) {
