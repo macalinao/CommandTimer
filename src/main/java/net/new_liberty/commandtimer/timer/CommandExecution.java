@@ -68,7 +68,7 @@ public class CommandExecution implements ConfigurationSerializable {
     public CommandExecution(Map<String, Object> s) {
         player = s.get("player").toString();
         command = s.get("command").toString();
-        set = CommandTimer.getInstance().getCommandSets().getSet(s.get("set").toString());
+        set = CommandTimer.getInstance().getCommandSets().getSetById(s.get("set").toString());
         group = CommandTimer.getInstance().getCommandSets().getGroup(s.get("group").toString());
         time = ((Long) s.get("time")).longValue();
     }
