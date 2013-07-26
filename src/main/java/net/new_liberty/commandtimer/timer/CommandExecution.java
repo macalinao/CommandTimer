@@ -61,6 +61,19 @@ public class CommandExecution implements ConfigurationSerializable {
     }
 
     /**
+     * C'tor used for serialization
+     *
+     * @param s
+     */
+    public CommandExecution(Map<String, Object> s) {
+        player = s.get("player").toString();
+        command = s.get("command").toString();
+        set = CommandTimer.getInstance().getCommandSets().getSet(s.get("set").toString());
+        group = CommandTimer.getInstance().getCommandSets().getGroup(s.get("group").toString());
+        time = ((Long) s.get("time")).longValue();
+    }
+
+    /**
      * Gets the player associated with this command execution.
      *
      * @return
@@ -172,13 +185,7 @@ public class CommandExecution implements ConfigurationSerializable {
      * @return
      */
     public static CommandExecution deserialize(Map<String, Object> s) {
-        String player = s.get("player").toString();
-        String command = s.get("command").toString();
-        CommandSet set = CommandTimer.getInstance().getCommandSets().getSet(s.get("set").toString());
-        CommandSetGroup group = CommandTimer.getInstance().getCommandSets().getGroup(s.get("group").toString());
-        long time = ((Long) s.get("time")).longValue();
-
-        return new CommandExecution(player, command, set, group);
+        return new CommandExecution(s);
     }
 
     /**
@@ -188,6 +195,6 @@ public class CommandExecution implements ConfigurationSerializable {
      * @return
      */
     public static CommandExecution valueOf(Map<String, Object> s) {
-        return deserialize(s);
+        return new CommandExecution(s);
     }
 }
