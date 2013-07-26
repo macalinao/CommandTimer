@@ -7,6 +7,7 @@ import java.util.HashMap;
 import java.util.Map;
 import net.new_liberty.commandtimer.set.CommandSet;
 import net.new_liberty.commandtimer.set.CommandSetGroup;
+import org.bukkit.ChatColor;
 import org.bukkit.configuration.Configuration;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.YamlConfiguration;
@@ -41,7 +42,7 @@ public class ConfigLoaderTest {
 
         assertEquals("teleport", set.getId());
 
-        assertEquals("&6Teleporting in %time% seconds. Don't move.", set.getMessage("warmup"));
+        assertEquals(ChatColor.getByChar('6') + "Teleporting in %time% seconds. Don't move.", set.getMessage("warmup"));
 
         assertTrue(set.getCommands().contains("home"));
         assertFalse(set.getCommands().contains("homeboy"));
