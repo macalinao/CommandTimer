@@ -6,7 +6,7 @@
     <description>A plugin that manages command warmups, cooldowns, and restrictions.</description>
     <groupId>net.new_liberty</groupId>
     <artifactId>commandtimer</artifactId>
-    <version>1.0.0</version>
+    <version>1.0.1-SNAPSHOT</version>
     <packaging>jar</packaging>
     <url>http://new-liberty.net</url>
 
@@ -22,7 +22,7 @@
         <developerConnection>scm:git:git@github.com:NewLibertyMC/CommandTimer.git</developerConnection>
         <connection>scm:git:https://github.com/NewLibertyMC/CommandTimer.git</connection>
         <url>https://bitbucket.org/NewLiberty/CommandTimer</url>
-        <tag>commandtimer-1.0.0</tag>
+        <tag>HEAD</tag>
     </scm>
 
     <ciManagement>
